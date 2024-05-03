@@ -87,4 +87,4 @@ workflows:
             - terraform_plan
       - terraform_destroy:
           requires:
-            - hold1
+            - hold

@@ -4,7 +4,6 @@ jobs:
   terraform_init:
     docker:
       - image: hashicorp/terraform:light
-      - image: amazon/aws-cli
     steps:
       - checkout
 
@@ -14,21 +13,12 @@ jobs:
           command: |
             apk update
             apk add --no-cache aws-cli
-
       # Configure AWS CLI with access key and secret key
       - run:
           name: Configure AWS CLI
           command: |
             aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
             aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
-
-      # Install Terraform
-      - run:
-          name: Install Terraform
-          command: |
-            curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
-            sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
-            sudo apt-get update && sudo apt-get install terraform
 
   terraform_plan:
     docker:

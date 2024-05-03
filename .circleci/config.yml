@@ -19,11 +19,6 @@ jobs:
           command: |
             aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
             aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
-      - run:
-          name: Terraform Init and Plan
-          command: |
-            terraform init
-            terraform plan
 
   terraform_plan:
     docker:
@@ -35,8 +30,9 @@ jobs:
       - run:
           name: Terraform Init and Plan
           command: |
-            terraform init
+            terraform init:
             terraform plan
+
 
   terraform_apply:
     docker:
@@ -54,15 +50,37 @@ jobs:
           name: Terraform Apply
           command: terraform apply -auto-approve
 
+  terraform_destroy:
+    docker:
+      - image: hashicorp/terraform:light
+    steps:
+      - checkout
+
+      # Initialize Terraform
+      - run:
+          name: Terraform Init
+          command: terraform init
+
+      # Destroy Terraform resources
+      - run:
+          name: Terraform Destroy
+          command: terraform destroy -auto-approve
+
 workflows:
   version: 2
   terraform_flow:
     jobs:
       - terraform_init
+      - terraform_plan:
+          requires:
+            - terraform_init
       - hold:
           type: approval
           requires:
-            - terraform_init
+            - terraform_plan
       - terraform_apply:
+          requires:
+            - hold
+      - terraform_destroy:
           requires:
             - hold

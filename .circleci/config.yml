@@ -5,17 +5,22 @@ jobs:
     docker:
       - image: hashicorp/terraform:light
       - image: amazon/aws-cli
-        environment:
-          AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
-          AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
-
     steps:
       - checkout
 
       # Install AWS CLI
       - run:
           name: Install AWS CLI
-          command: aws --version
+          command: |
+            apk update
+            apk add --no-cache aws-cli
+
+      # Configure AWS CLI with access key and secret key
+      - run:
+          name: Configure AWS CLI
+          command: |
+            aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+            aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
 
       # Install Terraform
       - run:
@@ -28,11 +33,6 @@ jobs:
   terraform_plan:
     docker:
       - image: hashicorp/terraform:light
-      - image: amazon/aws-cli
-        environment:
-          AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
-          AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
-
     steps:
       - checkout
 
@@ -49,11 +49,6 @@ jobs:
   terraform_apply:
     docker:
       - image: hashicorp/terraform:light
-      - image: amazon/aws-cli
-        environment:
-          AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
-          AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
-
     steps:
       - checkout
 

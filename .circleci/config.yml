@@ -57,7 +57,7 @@ workflows:
       - hold:
           type: approval
           requires:
-            - terraform_plan
+            - terraform_init
       - terraform_apply:
           requires:
             - hold

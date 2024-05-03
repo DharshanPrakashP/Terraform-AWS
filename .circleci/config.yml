@@ -30,7 +30,7 @@ jobs:
       - run:
           name: Terraform Init and Plan
           command: |
-            terraform init:
+            terraform init
             terraform plan
 
 

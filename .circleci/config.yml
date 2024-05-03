@@ -1,0 +1,83 @@
+version: 2.1
+
+jobs:
+  terraform_init:
+    docker:
+      - image: hashicorp/terraform:light
+
+    steps:
+      - checkout
+
+      # Install dependencies
+      - run:
+          name: Install Terraform
+          command: terraform --version
+
+      # Initialize Terraform
+      - run:
+          name: Terraform Init
+          command: terraform init
+
+  terraform_plan:
+    docker:
+      - image: hashicorp/terraform:light
+
+    steps:
+      - checkout
+
+      # Install dependencies
+      - run:
+          name: Install Terraform
+          command: terraform --version
+
+      # Initialize Terraform
+      - run:
+          name: Terraform Init
+          command: terraform init
+
+      # Generate Terraform plan
+      - run:
+          name: Terraform Plan
+          command: terraform plan
+
+  terraform_apply:
+    docker:
+      - image: hashicorp/terraform:light
+
+    steps:
+      - checkout
+
+      # Install dependencies
+      - run:
+          name: Install Terraform
+          command: terraform --version
+
+      # Initialize Terraform
+      - run:
+          name: Terraform Init
+          command: terraform init
+
+      # Apply Terraform changes
+      - run:
+          name: Terraform Apply
+          command: terraform apply -auto-approve
+
+workflows:
+  version: 2
+  terraform_plan_approval:
+    jobs:
+      - terraform_init
+      - terraform_plan
+      - approval/terraform_approval:
+          type: approval
+          requires:
+            - terraform_plan
+
+  terraform_apply_approval:
+    jobs:
+      - terraform_init
+      - terraform_apply
+      - approval/terraform_approval:
+          type: approval
+          requires:
+            - terraform_apply

@@ -12,15 +12,18 @@ jobs:
     steps:
       - checkout
 
-      # Install dependencies
-      - run:
-          name: Install Terraform
-          command: terraform --version
-
-      # Initialize AWS CLI
+      # Install AWS CLI
       - run:
           name: Install AWS CLI
           command: aws --version
+
+      # Install Terraform
+      - run:
+          name: Install Terraform
+          command: |
+            curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+            sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+            sudo apt-get update && sudo apt-get install terraform
 
   terraform_plan:
     docker:
@@ -32,16 +35,6 @@ jobs:
 
     steps:
       - checkout
-
-      # Install dependencies
-      - run:
-          name: Install Terraform
-          command: terraform --version
-
-      # Initialize AWS CLI
-      - run:
-          name: Install AWS CLI
-          command: aws --version
 
       # Initialize Terraform
       - run:
@@ -63,16 +56,6 @@ jobs:
 
     steps:
       - checkout
-
-      # Install dependencies
-      - run:
-          name: Install Terraform
-          command: terraform --version
-
-      # Initialize AWS CLI
-      - run:
-          name: Install AWS CLI
-          command: aws --version
 
       # Initialize Terraform
       - run:

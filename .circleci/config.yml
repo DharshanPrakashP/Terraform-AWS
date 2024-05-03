@@ -74,17 +74,17 @@ workflows:
       - terraform_plan:
           requires:
             - terraform_init
-      - hold:
+      - hold1:
           type: approval
           requires:
             - terraform_plan
       - terraform_apply:
           requires:
-            - hold
+            - hold1
       - hold:
           type: approval
           requires:
             - terraform_plan
       - terraform_destroy:
           requires:
-            - hold
+            - hold1

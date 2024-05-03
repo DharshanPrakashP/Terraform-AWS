@@ -4,6 +4,10 @@ jobs:
   terraform_init:
     docker:
       - image: hashicorp/terraform:light
+      - image: amazon/aws-cli
+        environment:
+          AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+          AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
 
     steps:
       - checkout
@@ -13,14 +17,18 @@ jobs:
           name: Install Terraform
           command: terraform --version
 
-      # Initialize Terraform
+      # Initialize AWS CLI
       - run:
-          name: Terraform Init
-          command: terraform init
+          name: Install AWS CLI
+          command: aws --version
 
   terraform_plan:
     docker:
       - image: hashicorp/terraform:light
+      - image: amazon/aws-cli
+        environment:
+          AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+          AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
 
     steps:
       - checkout
@@ -29,6 +37,11 @@ jobs:
       - run:
           name: Install Terraform
           command: terraform --version
+
+      # Initialize AWS CLI
+      - run:
+          name: Install AWS CLI
+          command: aws --version
 
       # Initialize Terraform
       - run:
@@ -43,6 +56,10 @@ jobs:
   terraform_apply:
     docker:
       - image: hashicorp/terraform:light
+      - image: amazon/aws-cli
+        environment:
+          AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+          AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
 
     steps:
       - checkout
@@ -51,6 +68,11 @@ jobs:
       - run:
           name: Install Terraform
           command: terraform --version
+
+      # Initialize AWS CLI
+      - run:
+          name: Install AWS CLI
+          command: aws --version
 
       # Initialize Terraform
       - run:

@@ -64,20 +64,16 @@ jobs:
 
 workflows:
   version: 2
-  terraform_plan_approval:
+  terraform_flow:
     jobs:
       - terraform_init
-      - terraform_plan
-      - approval/terraform_approval:
+      - terraform_plan:
+          requires:
+            - terraform_init
+      - hold:
           type: approval
           requires:
             - terraform_plan
-
-  terraform_apply_approval:
-    jobs:
-      - terraform_init
-      - terraform_apply
-      - approval/terraform_approval:
-          type: approval
+      - terraform_apply:
           requires:
-            - terraform_apply
+            - hold

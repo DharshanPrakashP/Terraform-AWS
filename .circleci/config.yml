@@ -28,13 +28,10 @@ jobs:
 
       # Initialize Terraform
       - run:
-          name: Terraform Init
-          command: terraform init
-
-      # Generate Terraform plan
-      - run:
-          name: Terraform Plan
-          command: terraform plan
+          name: Terraform Init and Plan
+          command: |
+            terraform init
+            terraform plan
 
   terraform_apply:
     docker:
@@ -57,9 +54,6 @@ workflows:
   terraform_flow:
     jobs:
       - terraform_init
-      - terraform_plan:
-          requires:
-            - terraform_init
       - hold:
           type: approval
           requires:

@@ -8,6 +8,8 @@ jobs:
       - checkout
 
       # Install AWS CLI
+
+      #init
       - run:
           name: Install AWS CLI
           command: |

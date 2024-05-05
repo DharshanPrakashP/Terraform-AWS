@@ -11,3 +11,10 @@ script:
   - terraform validate
   - terraform plan
   - terraform apply -auto-approve
+
+notification:
+  email:
+    recipients: dharshanprakasherode@gmail.com
+      - $NOTIFY_EMAIL
+    on_success: always
+    on_failure: always

@@ -1,0 +1,13 @@
+language: minimal
+
+before_install:
+  - curl -LO https://releases.hashicorp.com/terraform/0.15.4/terraform_0.15.4_linux_amd64.zip
+  - unzip terraform_0.15.4_linux_amd64.zip
+  - sudo mv terraform /usr/local/bin/
+  - terraform --version
+
+script:
+  - terraform init
+  - terraform validate
+  - terraform plan
+  - terraform apply -auto-approve

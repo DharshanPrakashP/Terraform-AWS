@@ -6,15 +6,21 @@ before_install:
   - sudo mv terraform /usr/local/bin/
   - terraform --version
 
+before_script:
+  - echo "AWS_ACCESS_KEY_ID=<your-access-key>" >> ~/.bash_profile
+  - echo "AWS_SECRET_ACCESS_KEY=<your-secret-key>" >> ~/.bash_profile
+  - source ~/.bash_profile
+
 script:
   - terraform init
   - terraform validate
   - terraform plan
   - terraform apply -auto-approve
 
-notification:
-  email:
-    recipients: dharshanprakasherode@gmail.com
+notifications:
+  email:  
+    recipients:
+      - dharshanprakasherode@gmail.com
       - $NOTIFY_EMAIL
     on_success: always
     on_failure: always

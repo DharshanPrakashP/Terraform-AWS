@@ -33,7 +33,8 @@ provider "aws" {
 resource "aws_vpc" "vpctest" {
   cidr_block = "10.0.0.0/16"
   
-}resource "aws_security_group" "test_sec" {
+}
+resource "aws_security_group" "test_sec" {
   vpc_id = aws_vpc.vpctest.id
 
   ingress {

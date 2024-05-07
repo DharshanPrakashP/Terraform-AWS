@@ -46,7 +46,7 @@ resource "aws_instance" "kalan" {
   tags = {
     Name = "kalan"
   }
-  vpc_security_group_ids = [aws_security_group.security_kaaraalan]
+  vpc_security_group_ids = [aws_security_group.security_kaaraalan.vpc_id]
   
 }
 

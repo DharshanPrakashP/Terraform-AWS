@@ -33,23 +33,24 @@ provider "aws" {
 resource "aws_vpc" "vpctest" {
   cidr_block = "10.0.0.0/16"
   
-}
-resource "aws_security_group" "test_sec" {
+}resource "aws_security_group" "test_sec" {
   vpc_id = aws_vpc.vpctest.id
-  ingress = {
-    from_port = 0
-    to_port = 0
-    
-    protocol = "-1"
-    cidr_block = ["0.0.0.0/0"]
+
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
   }
-  egress = {
-    from_port = 0
-    to_port = 0
-    protocol = "-1"
-    cidr_block = ["0.0.0.0/0"]
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 }
+
 resource "aws_subnet" "test_subnet" {
   vpc_id = aws_vpc.vpctest.id
   cidr_block = "10.0.0.0/24"

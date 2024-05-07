@@ -40,13 +40,13 @@ resource "aws_security_group" "security_kaaraalan" {
 
 }
 resource "aws_instance" "kalan" {
-  ami = "ami-07caf09b362be10b8"
+  ami = "ami-0092a7ee6b8b2222a"
   instance_type = "t2.micro"
   subnet_id = aws_subnet.subnet_test.id
   tags = {
     Name = "kalan"
   }
-  vpc_security_group_ids = [aws_security_group.security_kaaraalan.vpc_id]
+  # vpc_security_group_ids = [aws_security_group.security_kaaraalan.vpc_id]
   
 }
 

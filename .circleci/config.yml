@@ -10,7 +10,9 @@ jobs:
       # Change directory to the Terraform directory
       - run:
           name: Change directory to Terraform directory
-          command: cd Terraform-AWS/main
+          command: |
+           cd ./main
+           pwd
 
       # Install AWS CLI
 
@@ -37,7 +39,9 @@ jobs:
       # Change directory to the Terraform directory
       - run:
           name: Change directory to Terraform directory
-          command: cd Terraform-AWS/main
+          command: cd |
+           cd ./main
+           pwd
 
       # Initialize Terraform
       - run:
@@ -55,7 +59,9 @@ jobs:
       # Change directory to the Terraform directory
       - run:
           name: Change directory to Terraform directory
-          command: cd Terraform-AWS/main
+          command: cd |
+           cd ./main
+           pwd
 
       # Initialize Terraform
       - run:
@@ -76,7 +82,7 @@ jobs:
       # Change directory to the Terraform directory
       - run:
           name: Change directory to Terraform directory
-          command: cd Terraform-AWS/mainx 
+          command: cd ./mainx 
 
       # Initialize Terraform
       - run:

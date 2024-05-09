@@ -38,17 +38,17 @@ region = "us-east-1"
 #   }
 
 
-# }
-# resource "aws_instance" "kalan" {
-#   ami = "ami-0092a7ee6b8b2222a"
-#   instance_type = "t2.micro"
-#   subnet_id = aws_subnet.subnet_test.id
-#   tags = {
-#     Name = "kalan"
-#   }
-  # vpc_security_group_ids = [aws_security_group.security_kaaraalan.vpc_id]
+}
+resource "aws_instance" "kalan" {
+  ami = "ami-07caf09b362be10b8"
+  instance_type = "t2.micro"
+  subnet_id = aws_subnet.subnet_test.id
+  tags = {
+    Name = "kalan"
+  }
+  vpc_security_group_ids = [aws_security_group.security_kaaraalan.vpc_id]
   
-# }
+}
 
 
 resource "aws_iam_role" "kaaraalan" {
@@ -69,10 +69,10 @@ resource "aws_iam_role" "kaaraalan" {
 EOF
 }
 # //fix-code
-resource "aws_lambda_function" "lambdajaya" {
-  filename = "./python/lambda_function.zip"
-  role = aws_iam_role.kaaraalan.arn
-  function_name = "fines"
-  runtime = "python3.8"
-  handler = "lambda_function.lambda_handler"
-}
+# resource "aws_lambda_function" "lambdajaya" {
+#   filename = "./python/lambda_function.zip"
+#   role = aws_iam_role.kaaraalan.arn
+#   function_name = "fines"
+#   runtime = "python3.8"
+#   handler = "lambda_function.lambda_handler"
+# }

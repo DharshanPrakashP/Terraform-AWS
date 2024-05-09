@@ -1,51 +1,19 @@
 provider "aws" {
-  region = "ap-south-1"
-
+  region = "us-east-1"
 }
 
-# resource "aws_vpc" "Test" {
-#   cidr_block = "10.0.0.0/16"
-
-# }
-
-# resource "aws_security_group" "Test-secgrp" {
-
-#   vpc_id = aws_vpc.Test.id
-
-#   ingress {
-#     from_port   = 0
-#     to_port     = 0
-#     protocol    = "-1"
-#     cidr_blocks = ["0.0.0.0/0"]
-#   }
-
-#   egress {
-#     from_port   = 0
-#     to_port     = 0
-#     protocol    = "-1"
-#     cidr_blocks = ["0.0.0.0/0"]
-#   }
-
-# }
-
-# resource "aws_subnet" "Test-sbnet" {
-
-#   vpc_id            = aws_vpc.Test.id
-#   cidr_block        = "10.0.0.0/24"
-#   availability_zone = "ap-south-1a"
-
-# }
-
-# resource "aws_instance" "Test" {
-#   ami                    = "ami-013e83f579886baeb"
-#   instance_type          = "t2.micro"
-#   subnet_id              = aws_subnet.Test-sbnet.id
-#   vpc_security_group_ids = [aws_security_group.Test-secgrp.id]
-# }
+terraform {
+  backend "s3" {
+    bucket         = "tf-rp-states"
+    key            = "terraform.tfstate"
+    region         = "us-east-1"
+    # dynamodb_table = "terraform_locks"
+  }
+}
 
 resource "aws_iam_role" "ttt" {
-  name                = "test-role"
-  assume_role_policy  = <<EOF
+  name               = "test-role"
+  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -62,7 +30,6 @@ resource "aws_iam_role" "ttt" {
   ]
 }
 EOF
-
 }
 
 resource "aws_iam_role_policy" "ttt" {
@@ -94,6 +61,5 @@ resource "aws_lambda_function" "on_boarding_lambda" {
   runtime       = "python3.8"
   handler       = "lambda_function.lambda_handler"
   # layers        = [aws_lambda_layer_version.lambda_layer.arn, aws_lambda_layer_version.lambda_layer_2.arn]
-  role = aws_iam_role.ttt.arn
+  role          = aws_iam_role.ttt.arn
 }
-

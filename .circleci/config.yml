@@ -39,9 +39,11 @@ jobs:
       # Change directory to the Terraform directory
       - run:
           name: Change directory to Terraform directory
-          command: cd |
+          command: |
            cd ./main
            pwd
+           ls
+          
 
       # Initialize Terraform
       - run:
@@ -59,9 +61,10 @@ jobs:
       # Change directory to the Terraform directory
       - run:
           name: Change directory to Terraform directory
-          command: cd |
+          command: |
            cd ./main
            pwd
+           ls
 
       # Initialize Terraform
       - run:

@@ -7,16 +7,17 @@ jobs:
     steps:
       - checkout
 
-      # Change directory to the Terraform directory
+      # Change directory to ~/repo
       - run:
-          name: Change directory to Terraform directory
-          command: |
-           cd ./main
-           pwd
+          name: Change directory to ~/repo
+          command: cd ~/repo
+
+      # Initialize Terraform
+      - run:
+          name: Terraform Init
+          command: terraform init
 
       # Install AWS CLI
-
-      # Init
       - run:
           name: Install AWS CLI
           command: |
@@ -36,21 +37,20 @@ jobs:
     steps:
       - checkout
 
-      # Change directory to the Terraform directory
+      # Change directory to ~/repo
       - run:
-          name: Change directory to Terraform directory
-          command: |
-           cd ./main
-           pwd
-           ls
-          
+          name: Change directory to ~/repo
+          command: cd ~/repo
 
       # Initialize Terraform
       - run:
-          name: Terraform Init and Plan
-          command: |
-            terraform init
-            terraform plan
+          name: Terraform Init
+          command: terraform init
+
+      # Plan Terraform changes
+      - run:
+          name: Terraform Plan
+          command: terraform plan
 
   terraform_apply:
     docker:
@@ -58,13 +58,10 @@ jobs:
     steps:
       - checkout
 
-      # Change directory to the Terraform directory
+      # Change directory to ~/repo
       - run:
-          name: Change directory to Terraform directory
-          command: |
-           cd ./main
-           pwd
-           ls
+          name: Change directory to ~/repo
+          command: cd ~/repo
 
       # Initialize Terraform
       - run:
@@ -82,10 +79,10 @@ jobs:
     steps:
       - checkout
 
-      # Change directory to the Terraform directory
+      # Change directory to ~/repo
       - run:
-          name: Change directory to Terraform directory
-          command: cd ./mainx 
+          name: Change directory to ~/repo
+          command: cd ~/repo
 
       # Initialize Terraform
       - run:

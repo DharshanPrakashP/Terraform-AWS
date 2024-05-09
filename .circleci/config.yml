@@ -7,14 +7,20 @@ jobs:
     steps:
       - checkout
 
+      # Change directory to the Terraform directory
+      - run:
+          name: Change directory to Terraform directory
+          command: cd ./main
+
       # Install AWS CLI
 
-      #init
+      # Init
       - run:
           name: Install AWS CLI
           command: |
             apk update
             apk add --no-cache aws-cli
+
       # Configure AWS CLI with access key and secret key
       - run:
           name: Configure AWS CLI
@@ -28,6 +34,11 @@ jobs:
     steps:
       - checkout
 
+      # Change directory to the Terraform directory
+      - run:
+          name: Change directory to Terraform directory
+          command: cd ./main
+
       # Initialize Terraform
       - run:
           name: Terraform Init and Plan
@@ -35,12 +46,16 @@ jobs:
             terraform init
             terraform plan
 
-
   terraform_apply:
     docker:
       - image: hashicorp/terraform:light
     steps:
       - checkout
+
+      # Change directory to the Terraform directory
+      - run:
+          name: Change directory to Terraform directory
+          command: cd ./main
 
       # Initialize Terraform
       - run:
@@ -57,6 +72,11 @@ jobs:
       - image: hashicorp/terraform:light
     steps:
       - checkout
+
+      # Change directory to the Terraform directory
+      - run:
+          name: Change directory to Terraform directory
+          command: cd ./main
 
       # Initialize Terraform
       - run:

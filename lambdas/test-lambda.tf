@@ -50,4 +50,5 @@ resource "aws_lambda_function" "on_boarding_lambda" {
   handler       = "lambda_function.lambda_handler"
   # layers        = [aws_lambda_layer_version.lambda_layer.arn, aws_lambda_layer_version.lambda_layer_2.arn]
   role          = aws_iam_role.ttt.arn
+  
 }

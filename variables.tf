@@ -3,3 +3,5 @@ variable "region" {
   type        = string
   default     = "us-east-1"
 }
+
+# Define other variables here as needed

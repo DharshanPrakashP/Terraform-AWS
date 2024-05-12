@@ -1,3 +1,5 @@
-output "terraform_role" {
-  value = var.role_arn
+output "terraform_role" { 
+
+value = aws_iam_role.ttt.arn
+
 }
